@@ -61,7 +61,7 @@ class RequiredValidator extends AbstractValidator {
 
         if (is_array($value)) {
             if (empty($value)) {
-                $this->addValidationError($this->errorCode, self::MESSAGE, array('value' => $value));
+                $this->addValidationError($this->errorCode, self::MESSAGE, array('value' => 'array()'));
 
                 return false;
             }

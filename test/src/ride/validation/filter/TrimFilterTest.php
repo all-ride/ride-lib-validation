@@ -32,7 +32,7 @@ class TrimFilterTest extends PHPUnit_Framework_TestCase {
      * @dataProvider providerLinesFilter
      */
     public function testLinesFilter($value, $expected) {
-        $filter = new TrimFilter(array(TrimFilter::TRIM_LINES => true, TrimFilter::TRIM_EMPTY => true));
+        $filter = new TrimFilter(array(TrimFilter::OPTION_LINES => true, TrimFilter::OPTION_EMPTY => true));
 
         $result = $filter->filter($value);
         $this->assertEquals($expected, $result, $value);
@@ -48,6 +48,60 @@ class TrimFilterTest extends PHPUnit_Framework_TestCase {
             array('  www.google.com  ', 'www.google.com'),
             array($this, $this),
             array("   test\n  sentence\n\n with   \n some \n whitespaces\n", "test\nsentence\nwith\nsome\nwhitespaces"),
+        );
+    }
+
+    /**
+     * @dataProvider providerLeftFilter
+     */
+    public function testLeftFilter($value, $expected) {
+        $filter = new TrimFilter(array(TrimFilter::OPTION_RIGHT => false));
+
+        $result = $filter->filter($value);
+        $this->assertEquals($expected, $result, $value);
+    }
+
+    public function providerLeftFilter() {
+        return array(
+            array(true, true),
+            array('info@google.com', 'info@google.com'),
+            array('  www.google.com  ', 'www.google.com  '),
+        );
+    }
+
+    /**
+     * @dataProvider providerRightFilter
+     */
+    public function testRightFilter($value, $expected) {
+        $filter = new TrimFilter(array(TrimFilter::OPTION_LEFT => false));
+
+        $result = $filter->filter($value);
+        $this->assertEquals($expected, $result, $value);
+    }
+
+    public function providerRightFilter() {
+        return array(
+            array(true, true),
+            array('info@google.com', 'info@google.com'),
+            array('  www.google.com  ', '  www.google.com'),
+        );
+    }
+
+    /**
+     * @dataProvider providerFilterWithCustomMask
+     */
+    public function testFilterWithCustomMask($value, $expected) {
+        $filter = new TrimFilter(array(TrimFilter::OPTION_MASK => '/'));
+
+        $result = $filter->filter($value);
+        $this->assertEquals($expected, $result, $value);
+    }
+
+    public function providerFilterWithCustomMask() {
+        return array(
+            array(true, true),
+            array('//info@google.com/', 'info@google.com'),
+            array('  www.google.com  ', '  www.google.com  '),
         );
     }
 

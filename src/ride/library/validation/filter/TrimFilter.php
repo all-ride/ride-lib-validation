@@ -11,25 +11,61 @@ class TrimFilter implements Filter {
      * Name of the option to trim the individual lines of the value
      * @var string
      */
-    const TRIM_LINES = 'trim.lines';
+    const OPTION_LINES = 'lines';
 
     /**
      * Name of the option to remove empty lines when filtering individual lines
      * @var string
      */
-    const TRIM_EMPTY = 'trim.empty';
+    const OPTION_EMPTY = 'empty';
+
+    /**
+     * Name of the option to trim the left side
+     * @var string
+     */
+    const OPTION_LEFT = 'left';
+
+    /**
+     * Name of the option to trim the right side
+     * @var string
+     */
+    const OPTION_RIGHT = 'right';
+
+    /**
+     * Name of the option to set the character mask
+     * @var string
+     */
+    const OPTION_MASK = 'mask';
 
     /**
      * Flag to see if the individual lines should be trimmed
      * @var boolean
      */
-    private $trimLines;
+    private $willTrimLines;
 
     /**
      * Flag to see if the empty lines should be trimmed
      * @var boolean
      */
-    private $trimEmpty;
+    private $willTrimEmptyLines;
+
+    /**
+     * Flag to see if the beginning of the value should be trimmed
+     * @var boolean
+     */
+    private $willTrimLeft;
+
+    /**
+     * Flag to see if the end of the value should be trimmed
+     * @var boolean
+     */
+    private $willTrimRight;
+
+    /**
+     * Flag to see if the empty lines should be trimmed
+     * @var boolean
+     */
+    private $characterMask;
 
     /**
      * Constructs a new filter instance
@@ -37,16 +73,34 @@ class TrimFilter implements Filter {
      * @return null
      */
     public function __construct(array $options = null) {
-        if (isset($options[self::TRIM_LINES])) {
-            $this->trimLines = $options[self::TRIM_LINES];
+        if (isset($options[self::OPTION_LINES])) {
+            $this->willTrimLines = $options[self::OPTION_LINES];
         } else {
-            $this->trimLines = false;
+            $this->willTrimLines = false;
         }
 
-        if (isset($options[self::TRIM_EMPTY])) {
-            $this->trimEmpty = $options[self::TRIM_EMPTY];
+        if (isset($options[self::OPTION_EMPTY])) {
+            $this->willTrimEmptyLines = $options[self::OPTION_EMPTY];
         } else {
-            $this->trimEmpty = false;
+            $this->willTrimEmptyLines = false;
+        }
+
+        if ($options && array_key_exists(self::OPTION_LEFT, $options)) {
+            $this->willTrimLeft = $options[self::OPTION_LEFT];
+        } else {
+            $this->willTrimLeft = true;
+        }
+
+        if ($options && array_key_exists(self::OPTION_RIGHT, $options)) {
+            $this->willTrimRight = $options[self::OPTION_RIGHT];
+        } else {
+            $this->willTrimRight = true;
+        }
+
+        if (isset($options[self::OPTION_MASK])) {
+            $this->characterMask = $options[self::OPTION_MASK];
+        } else {
+            $this->characterMask = " \t\n\r\0\x0B";
         }
     }
 
@@ -58,11 +112,11 @@ class TrimFilter implements Filter {
      */
     public function filter($value) {
         if (is_string($value)) {
-            if ($this->trimLines) {
+            if ($this->willTrimLines) {
                 return $this->trimLines($value);
             }
 
-            return trim($value);
+            return $this->trimValue($value);
         } elseif (is_array($value)) {
             return $this->trimArray($value);
         }
@@ -80,9 +134,9 @@ class TrimFilter implements Filter {
 
         $value = '';
         foreach ($lines as $line) {
-            $line = trim($line);
+            $line = $this->trimValue($line);
 
-            if ($this->trimEmpty && $line === '') {
+            if ($this->willTrimEmptyLines && $line === '') {
                 continue;
             }
 
@@ -107,9 +161,9 @@ class TrimFilter implements Filter {
                 continue;
             }
 
-            $value = trim($value);
+            $value = $this->trimValue($value);
 
-            if ($this->trimEmpty && $value === '') {
+            if ($this->willTrimEmptyLines && $value === '') {
                 unset($values[$key]);
 
                 continue;
@@ -119,6 +173,21 @@ class TrimFilter implements Filter {
         }
 
         return $values;
+    }
+
+    /**
+     * Performs the actual trim operation
+     * @param string $value Value to trim
+     * @return string Trimmed value
+     */
+    private function trimValue($value) {
+        if ($this->willTrimLeft && $this->willTrimRight) {
+            return trim($value, $this->characterMask);
+        } elseif ($this->willTrimLeft) {
+            return ltrim($value, $this->characterMask);
+        }
+
+        return rtrim($value, $this->characterMask);
     }
 
 }

@@ -41,7 +41,7 @@ class GenericConstraint extends AbstractConstraint {
 
     /**
      * Adds a filter for the provided property
-     * @param ride\library\validation\filter\Filter $filter Filter for the
+     * @param \ride\library\validation\filter\Filter $filter Filter for the
      * @param string $property Name of the property
      * property
      * @return null
@@ -76,7 +76,7 @@ class GenericConstraint extends AbstractConstraint {
 
     /**
      * Adds a validator for the provided property
-     * @param ride\library\validation\validator\Validator $validator Validator
+     * @param \ride\library\validation\validator\Validator $validator Validator
      * @param string $property Name of the property
      * for the property
      * @return null
@@ -122,9 +122,9 @@ class GenericConstraint extends AbstractConstraint {
     /**
      * Validates the provided data
      * @param array|object $data Data to be validated
-     * @param ride\library\validation\exception\ValidationException $exception
+     * @param \ride\library\validation\exception\ValidationException $exception
      * @return array|object Filtered and validated data
-     * @throws ride\library\validation\exception\ValidationException when the
+     * @throws \ride\library\validation\exception\ValidationException when the
      * data could not be validated and no exception is provided
      */
     public function validateData($data, ValidationException $exception = null) {
@@ -177,7 +177,7 @@ class GenericConstraint extends AbstractConstraint {
      * @param string $property Name of the property
      * @param mixed $value Value for the property
      * @return mixed Filtered and validated value
-     * @throws ride\library\validation\exception\ValidationException when the
+     * @throws \ride\library\validation\exception\ValidationException when the
      * property could not be validated and no exception is provided
      */
     public function validateProperty($property, $value, ValidationException $exception = null) {

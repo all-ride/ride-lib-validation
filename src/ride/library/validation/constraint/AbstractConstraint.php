@@ -2,9 +2,6 @@
 
 namespace ride\library\validation\constraint;
 
-use ride\library\validation\exception\ValidationException;
-use ride\library\validation\validator\Validator;
-
 /**
  * Abstract constraint to validate a data container
  */

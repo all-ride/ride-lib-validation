@@ -207,14 +207,9 @@ class GenericConstraint implements Constraint {
         if ($exception) {
             $throwException = false;
         } else {
-<<<<<<< HEAD
             $throwException = true;
 
             $exception = new ValidationException();
-=======
-            $exception = new ValidationException();
-            $throwException = true;
->>>>>>> 098665d52ca53d09a50fc4e83b751dadbfaad382
         }
 
         foreach ($this->validators[$property] as $validator) {

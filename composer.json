@@ -9,6 +9,9 @@
             "email": "joris@statik.be"
         }
     ],
+    "require": {
+        "ride/lib-reflection": ">=0.4.0"
+    },
     "autoload": {
         "psr-0": {
             "ride\\library\\validation\\": ["src/", "test/src/"]

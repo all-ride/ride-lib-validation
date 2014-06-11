@@ -2,6 +2,7 @@
 
 namespace ride\library\validation\constraint;
 
+use ride\library\reflection\ReflectionHelper;
 use ride\library\validation\exception\ValidationException;
 use ride\library\validation\filter\Filter;
 use ride\library\validation\validator\Validator;
@@ -9,7 +10,13 @@ use ride\library\validation\validator\Validator;
 /**
  * Constraint to validate a data container
  */
-class GenericConstraint extends AbstractConstraint {
+class GenericConstraint implements Constraint {
+
+    /**
+     * Instance of the reflection helper
+     * @var \ride\library\reflection\ReflectionHelper
+     */
+    protected $reflectionHelper;
 
     /**
      * Filter per property
@@ -33,7 +40,13 @@ class GenericConstraint extends AbstractConstraint {
      * Constructs a new generic constraint
      * @return null
      */
-    public function __construct() {
+    public function __construct(ReflectionHelper $reflectionHelper = null) {
+        if ($reflectionHelper) {
+            $this->reflectionHelper = $reflectionHelper;
+        } else {
+            $this->reflectionHelper = new ReflectionHelper();
+        }
+
         $this->filters = array();
         $this->validators = array();
         $this->constraints = array();
@@ -120,17 +133,16 @@ class GenericConstraint extends AbstractConstraint {
     }
 
     /**
-     * Validates the provided data
-     * @param array|object $data Data to be validated
+     * Validates the provided entry
+     * @param array|object $entry Entry to be validated
      * @param ride\library\validation\exception\ValidationException $exception
-     * @return array|object Filtered and validated data
+     * @return array|object Filtered and validated entry
      * @throws ride\library\validation\exception\ValidationException when the
      * data could not be validated and no exception is provided
      */
-    public function validateData($data, ValidationException $exception = null) {
+    public function validateEntry($entry, ValidationException $exception = null) {
         foreach ($this->filters as $property => $filters) {
-            $value = $this->getProperty($property, $data);
-
+            $value = $this->reflectionHelper->getProperty($entry, $property);
             if ($value === null) {
                 continue;
             }
@@ -139,18 +151,19 @@ class GenericConstraint extends AbstractConstraint {
                 $value = $filter->filter($value);
             }
 
-            $this->setProperty($property, $data, $value);
+            $this->reflectionHelper->setProperty($entry, $property, $value);
         }
 
         if ($exception) {
             $throwException = false;
         } else {
-            $exception = new ValidationException();
             $throwException = true;
+
+            $exception = new ValidationException();
         }
 
         foreach ($this->validators as $property => $validators) {
-            $value = $this->getProperty($property, $data);
+            $value = $this->reflectionHelper->getProperty($entry, $property);
 
             foreach ($validators as $validator) {
                 if ($validator->isValid($value)) {
@@ -162,14 +175,14 @@ class GenericConstraint extends AbstractConstraint {
         }
 
         foreach ($this->constraints as $constraint) {
-            $data = $constraint->validateData($data, $exception);
+            $entry = $constraint->validateEntry($entry, $exception);
         }
 
         if ($throwException && $exception->hasErrors()) {
             throw $exception;
         }
 
-        return $data;
+        return $entry;
     }
 
     /**
@@ -194,8 +207,9 @@ class GenericConstraint extends AbstractConstraint {
         if ($exception) {
             $throwException = false;
         } else {
-            $exception = new ValidationException();
             $throwException = true;
+
+            $exception = new ValidationException();
         }
 
         foreach ($this->validators[$property] as $validator) {

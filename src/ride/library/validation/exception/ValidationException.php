@@ -34,7 +34,7 @@ class ValidationException extends Exception {
     /**
      * Adds a error for a field
      * @param string $name Name of the field
-     * @param ride\library\validation\ValidationError $error Validation error
+     * @param \ride\library\validation\ValidationError $error Validation error
      * @return null
      */
     public function addError($name, ValidationError $error) {

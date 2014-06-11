@@ -33,10 +33,10 @@ class ConditionalConstraint extends GenericConstraint  {
     /**
      * Validates the provided entry
      * @param array|object $entry Entry to be validated
-     * @param ride\library\validation\exception\ValidationException $exception
+     * @param \ride\library\validation\exception\ValidationException $exception
      * @return array|object Filtered and validated entry
-     * @throws ride\library\validation\exception\ValidationException when the
-     * data could not be validated and no exception is provided
+     * @throws \ride\library\validation\exception\ValidationException when the
+     * entry could not be validated and no exception is provided
      */
     public function validateEntry($entry, ValidationException $exception = null) {
         foreach ($this->conditions as $property => $conditions) {

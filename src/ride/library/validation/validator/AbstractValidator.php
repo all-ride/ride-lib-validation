@@ -37,7 +37,7 @@ abstract class AbstractValidator implements Validator {
 
     /**
      * Adds an error to this validator
-     * @param ride\library\validation\ValidationError $error
+     * @param \ride\library\validation\ValidationError $error
      * @return null
      */
     protected function addError(ValidationError $error) {

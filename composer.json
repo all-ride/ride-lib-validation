@@ -2,13 +2,16 @@
     "name": "ride/lib-validation",
     "description": "Validation library of the Ride framework",
     "license": "MIT",
-    "version": "0.2.0",
+    "version": "0.3.0",
     "authors": [
         {
             "name": "Joris Vandeweerd",
             "email": "joris@statik.be"
         }
     ],
+    "require": {
+        "ride/lib-reflection": ">=0.4.0"
+    },
     "autoload": {
         "psr-0": {
             "ride\\library\\validation\\": ["src/", "test/src/"]

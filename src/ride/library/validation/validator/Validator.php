@@ -23,7 +23,7 @@ interface Validator {
 
     /**
      * Get the errors of the last isValid call
-     * @return array Array with ride\library\validation\ValidationError objects
+     * @return array Array with \ride\library\validation\ValidationError objects
      */
     public function getErrors();
 

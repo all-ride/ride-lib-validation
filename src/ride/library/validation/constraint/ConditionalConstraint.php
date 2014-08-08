@@ -31,16 +31,16 @@ class ConditionalConstraint extends GenericConstraint  {
     }
 
     /**
-     * Validates the provided entry
-     * @param array|object $entry Entry to be validated
+     * Constrains the provided instance
+     * @param array|object $isntance Instance to be validated
      * @param \ride\library\validation\exception\ValidationException $exception
-     * @return array|object Filtered and validated entry
+     * @return array|object Filtered and validated instance
      * @throws \ride\library\validation\exception\ValidationException when the
-     * entry could not be validated and no exception is provided
+     * instance could not be validated and no exception is provided
      */
-    public function validateEntry($entry, ValidationException $exception = null) {
+    public function constrain($instance, ValidationException $exception = null) {
         foreach ($this->conditions as $property => $conditions) {
-            $value = $this->reflectionHelper->getProperty($entry, $property);
+            $value = $this->reflectionHelper->getProperty($instance, $property);
 
             foreach ($conditions as $conditionValue) {
                 if ($value === $conditionValue) {
@@ -48,10 +48,10 @@ class ConditionalConstraint extends GenericConstraint  {
                 }
             }
 
-            return $entry;
+            return $instance;
         }
 
-        return parent::validateEntry($entry, $exception);
+        return parent::constrain($instance, $exception);
     }
 
 }

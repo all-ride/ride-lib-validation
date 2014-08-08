@@ -8,9 +8,9 @@ use ride\library\validation\filter\Filter;
 use ride\library\validation\validator\Validator;
 
 /**
- * Constraint to validate a data container
+ * Constraint to filter and validate a data container
  */
-class GenericConstraint implements Constraint {
+class GenericConstraint extends ChainConstraint {
 
     /**
      * Instance of the reflection helper
@@ -31,16 +31,12 @@ class GenericConstraint implements Constraint {
     protected $validators;
 
     /**
-     * Nested constraints
-     * @var array
-     */
-    protected $constraints;
-
-    /**
      * Constructs a new generic constraint
      * @return null
      */
     public function __construct(ReflectionHelper $reflectionHelper = null) {
+        parent::__construct();
+
         if ($reflectionHelper) {
             $this->reflectionHelper = $reflectionHelper;
         } else {
@@ -49,7 +45,6 @@ class GenericConstraint implements Constraint {
 
         $this->filters = array();
         $this->validators = array();
-        $this->constraints = array();
     }
 
     /**
@@ -124,34 +119,22 @@ class GenericConstraint implements Constraint {
     }
 
     /**
-     * Adds a nested constraint
-     * @param Constraint $constraint Constraint
-     * @return null
-     */
-    public function addConstraint(Constraint $constraint) {
-        $this->constraints[] = $constraint;
-    }
-
-    /**
-     * Validates the provided entry
-     * @param array|object $entry Entry to be validated
+     * Constrains the provided instance
+     * @param array|object $isntance Instance to be validated
      * @param \ride\library\validation\exception\ValidationException $exception
-     * @return array|object Filtered and validated entry
+     * @return array|object Filtered and validated instance
      * @throws \ride\library\validation\exception\ValidationException when the
-     * entry could not be validated and no exception is provided
+     * instance could not be validated and no exception is provided
      */
-    public function validateEntry($entry, ValidationException $exception = null) {
+    public function constrain($instance, ValidationException $exception = null) {
         foreach ($this->filters as $property => $filters) {
-            $value = $this->reflectionHelper->getProperty($entry, $property);
-            if ($value === null) {
-                continue;
-            }
+            $value = $this->reflectionHelper->getProperty($instance, $property);
 
             foreach ($filters as $filter) {
                 $value = $filter->filter($value);
             }
 
-            $this->reflectionHelper->setProperty($entry, $property, $value);
+            $this->reflectionHelper->setProperty($instance, $property, $value);
         }
 
         if ($exception) {
@@ -163,7 +146,7 @@ class GenericConstraint implements Constraint {
         }
 
         foreach ($this->validators as $property => $validators) {
-            $value = $this->reflectionHelper->getProperty($entry, $property);
+            $value = $this->reflectionHelper->getProperty($instance, $property);
 
             foreach ($validators as $validator) {
                 if ($validator->isValid($value)) {
@@ -175,56 +158,14 @@ class GenericConstraint implements Constraint {
         }
 
         foreach ($this->constraints as $constraint) {
-            $entry = $constraint->validateEntry($entry, $exception);
+            $instance = $constraint->constrain($instance, $exception);
         }
 
         if ($throwException && $exception->hasErrors()) {
             throw $exception;
         }
 
-        return $entry;
-    }
-
-    /**
-     * Validates a property
-     * @param string $property Name of the property
-     * @param mixed $value Value for the property
-     * @return mixed Filtered and validated value
-     * @throws \ride\library\validation\exception\ValidationException when the
-     * property could not be validated and no exception is provided
-     */
-    public function validateProperty($property, $value, ValidationException $exception = null) {
-        if (isset($this->filters[$property])) {
-            foreach ($this->filters[$property] as $filter) {
-                $value = $filter->filter();
-            }
-        }
-
-        if (!isset($this->validators[$property])) {
-            return $value;
-        }
-
-        if ($exception) {
-            $throwException = false;
-        } else {
-            $throwException = true;
-
-            $exception = new ValidationException();
-        }
-
-        foreach ($this->validators[$property] as $validator) {
-            if ($validator->isValid($value)) {
-                continue;
-            }
-
-            $exception->addErrors($property, $validator->getErrors());
-        }
-
-        if ($throwException && $exception->hasErrors()) {
-            throw $exception;
-        }
-
-        return $value;
+        return $instance;
     }
 
 }

@@ -571,7 +571,7 @@ class UrlValidatorTest extends PHPUnit_Framework_TestCase {
             ),
             array(
                 'value' => 'è',
-                'expected' => false,
+                'expected' => true,
             ),
             array(
                 'value' => '3',
@@ -951,8 +951,9 @@ class UrlValidatorTest extends PHPUnit_Framework_TestCase {
             array('file://etc/passwd', true),
             array('ftp://ftp.google.com', true),
             array('ftp://user:password@ftp.google.com/folder', true),
+            array('http://www.ééélo.fr/', true),
+            array('http://www.normal.com/éééélo', true),
         );
-
     }
 
 }

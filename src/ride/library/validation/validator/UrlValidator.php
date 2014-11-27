@@ -246,15 +246,18 @@ class UrlValidator extends RegexValidator {
      */
     protected function initRegularExpressions() {
         $this->regexAlpha = '[a-zA-Z]';
+        $this->regexUnicode = '[ÆÐƎƏƐƔĲŊŒẞÞǷȜæðǝəɛɣĳŋœĸſßþƿȝĄƁÇĐƊĘĦĮƘŁØƠŞȘŢȚŦŲƯY̨Ƴąɓçđɗęħįƙłøơşșţțŧųưy̨ƴÁÀÂÄǍĂĀÃÅǺĄÆǼǢƁĆĊĈČÇĎḌĐƊÐÉÈĖÊËĚĔĒĘẸƎƏƐĠĜǦĞĢƔáàâäǎăāãåǻąæǽǣɓćċĉčçďḍđɗðéèėêëěĕēęẹǝəɛġĝǧğģɣĤḤĦIÍÌİÎÏǏĬĪĨĮỊĲĴĶƘĹĻŁĽĿʼNŃN̈ŇÑŅŊÓÒÔÖǑŎŌÕŐỌØǾƠŒĥḥħıíìiîïǐĭīĩįịĳĵķƙĸĺļłľŀŉńn̈ňñņŋóòôöǒŏōõőọøǿơœŔŘŖŚŜŠŞȘṢẞŤŢṬŦÞÚÙÛÜǓŬŪŨŰŮŲỤƯẂẀŴẄǷÝỲŶŸȲỸƳŹŻŽẒŕřŗſśŝšşșṣßťţṭŧþúùûüǔŭūũűůųụưẃẁŵẅƿýỳŷÿȳỹƴźżžẓ]';
         $this->regexDigit = '[0-9]';
-        $this->regexAlphaDigit = '[a-zA-Z0-9]'; // aplha | digit
+        $this->regexAlphaDigit = '(' . $this->regexAlpha . '|' . $this->regexDigit . ')'; // aplha | digit
+        $this->regexAlphaUnicode = '(' . $this->regexAlpha . '|' . $this->regexUnicode . ')'; // aplha | unicode
+        $this->regexAlphaDigitUnicode = '(' . $this->regexAlpha . '|' . $this->regexDigit . '|' . $this->regexUnicode . ')'; // aplha | digit | unicode
         $this->regexSafe = '[$+_.-]'; // "$" | "-" | "_" | "." | "+"
         $this->regexExtra = '[!*\'(),]'; // "!" | "*" | "'" | "(" | ")" | ","
         $this->regexNational = '([\\\\{\\\\[\\\\}\\\\|`^~\\]|])'; // "{" | "}" | "|" | "\" | "^" | "~" | "[" | "]" | "`"
         $this->regexReserved = '[;\\/?:@&=]'; // ";" | "/" | "?" | ":" | "@" | "&" | "="
         $this->regexHex = '[0-9A-Fa-f]'; // digit | "A" | "B" | "C" | "D" | "E" | "F" | "a" | "b" | "c" | "d" | "e" | "f"
         $this->regexEscape = '%' . $this->regexHex . $this->regexHex; // "%" hex hex
-        $this->regexUnreserved = '(' . $this->regexAlpha . '|' . $this->regexDigit . '|' . $this->regexSafe . '|' . $this->regexExtra . ')'; // alpha | digit | safe | extra
+        $this->regexUnreserved = '(' . $this->regexAlpha . '|' . $this->regexDigit . '|' . $this->regexUnicode . '|' . $this->regexSafe . '|' . $this->regexExtra . ')'; // alpha | digit | unicode | safe | extra
         $this->regexUchar = '(' . $this->regexUnreserved . '|' . $this->regexEscape . ')'; // unreserved | escape
         $this->regexXchar = '(' . $this->regexUnreserved . '|' . $this->regexReserved . '|' . $this->regexEscape . ')'; // unreserved | reserved | escape
         $this->regexDigits = '(' . $this->regexDigit . ')+'; // 1*digit
@@ -263,7 +266,7 @@ class UrlValidator extends RegexValidator {
         $this->regexUser = '(' . $this->regexUchar . '|[;?&=])+'; // *[ uchar | ";" | "?" | "&" | "=" ]
         $this->regexPassword = '(' . $this->regexUchar . '|[;?&=])+'; // *[ uchar | ";" | "?" | "&" | "=" ]
         $this->regexTopLabel = '(' . $this->regexAlpha . '|' . $this->regexAlpha . '(' . $this->regexAlphaDigit . '|-)*' . $this->regexAlphaDigit . ')'; // alpha | alpha *[ alphadigit | "-" ] alphadigit
-        $this->regexDomainLabel = '(' . $this->regexAlphaDigit . '|' . $this->regexAlphaDigit . '(' . $this->regexAlphaDigit . '|-)*' . $this->regexAlphaDigit . ')'; // alphadigit | alphadigit *[ alphadigit | "-" ] alphadigit
+        $this->regexDomainLabel = '(' . $this->regexAlphaDigitUnicode . '|' . $this->regexAlphaDigitUnicode . '(' . $this->regexAlphaDigitUnicode . '|-)*' . $this->regexAlphaDigitUnicode . ')'; // alphadigit | alphadigit *[ alphadigit | "-" ] alphadigit
         $this->regexPort = $this->regexDigits; // digits
 
         $this->regexHostNumber = $this->regexDigits . '\\.' . $this->regexDigits . '\\.' . $this->regexDigits . '\\.' . $this->regexDigits; // digits "." digits "." digits "." digits

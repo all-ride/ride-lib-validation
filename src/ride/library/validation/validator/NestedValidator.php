@@ -8,6 +8,12 @@ namespace ride\library\validation\validator;
 class NestedValidator extends AbstractValidator {
 
     /**
+     * Machine name of this validator
+     * @var string
+     */
+    const NAME = 'nested';
+
+    /**
      * Array with the validators
      * @var array
      */

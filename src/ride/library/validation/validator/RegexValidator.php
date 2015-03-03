@@ -10,6 +10,12 @@ use \InvalidArgumentException;
 class RegexValidator extends AbstractValidator {
 
     /**
+     * Machine name of this validator
+     * @var string
+     */
+    const NAME = 'regex';
+
+    /**
      * Code for the error when the regular expression is not matched
      * @var string
      */

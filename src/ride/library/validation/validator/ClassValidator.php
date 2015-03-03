@@ -12,6 +12,12 @@ use \ReflectionClass;
 class ClassValidator extends AbstractValidator {
 
     /**
+     * Machine name of this validator
+     * @var string
+     */
+    const NAME = 'class';
+
+    /**
      * Code for the error when the value is not a valid PHP class
      * @var string
      */

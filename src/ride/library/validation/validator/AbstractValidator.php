@@ -10,6 +10,12 @@ use ride\library\validation\ValidationError;
 abstract class AbstractValidator implements Validator {
 
     /**
+     * Options for the validator
+     * @var array
+     */
+    protected $options;
+
+    /**
      * Array with the ValidationError objects
      * @var array
      */
@@ -21,7 +27,25 @@ abstract class AbstractValidator implements Validator {
      * @return null
      */
     public function __construct(array $options = array()) {
+        $this->options = $options;
         $this->errors = array();
+    }
+
+    /**
+     * Gets the machine name of this validator
+     * @return string
+     */
+    public function getName() {
+        return static::NAME;
+    }
+
+    /**
+     * Gets the options of this validator
+     * @param array Array with the options
+     * @return string
+     */
+    public function getOptions() {
+        return $this->options;
     }
 
     /**

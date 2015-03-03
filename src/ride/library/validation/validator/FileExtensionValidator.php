@@ -8,6 +8,12 @@ namespace ride\library\validation\validator;
 class FileExtensionValidator extends AbstractValidator {
 
     /**
+     * Machine name of this validator
+     * @var string
+     */
+    const NAME = 'extension';
+
+    /**
      * Code of the error when the filename has not a valid extension
      * @var string
      */

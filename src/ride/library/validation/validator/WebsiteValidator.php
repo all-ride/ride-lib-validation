@@ -8,6 +8,12 @@ namespace ride\library\validation\validator;
 class WebsiteValidator extends UrlValidator {
 
     /**
+     * Machine name of this validator
+     * @var string
+     */
+    const NAME = 'website';
+
+    /**
      * Error code when the value is not a valid website
      * @var string
      */

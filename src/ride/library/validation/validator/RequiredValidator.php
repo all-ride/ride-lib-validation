@@ -8,6 +8,12 @@ namespace ride\library\validation\validator;
 class RequiredValidator extends AbstractValidator {
 
     /**
+     * Machine name of this validator
+     * @var string
+     */
+    const NAME = 'required';
+
+    /**
      * Code of the error message when the value is empty
      * @var string
      */

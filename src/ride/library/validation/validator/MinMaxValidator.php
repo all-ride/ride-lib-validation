@@ -11,6 +11,12 @@ use \InvalidArgumentException;
 class MinMaxValidator extends NumericValidator {
 
     /**
+     * Machine name of this validator
+     * @var string
+     */
+    const NAME = 'minmax';
+
+    /**
      * Code for the error when the value is less then the minimum
      * @var string
      */

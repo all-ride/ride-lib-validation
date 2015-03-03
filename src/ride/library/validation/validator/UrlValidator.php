@@ -9,6 +9,12 @@ namespace ride\library\validation\validator;
 class UrlValidator extends RegexValidator {
 
     /**
+     * Machine name of this validator
+     * @var string
+     */
+    const NAME = 'url';
+
+    /**
      * Code of the error when the value is not a URL
      * @var unknown_type
      */

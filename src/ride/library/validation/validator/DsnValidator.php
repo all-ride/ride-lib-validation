@@ -8,6 +8,12 @@ namespace ride\library\validation\validator;
 class DsnValidator extends UrlValidator {
 
     /**
+     * Machine name of this validator
+     * @var string
+     */
+    const NAME = 'dsn';
+
+    /**
      * Code for the error when the value is not a valid DSN
      * @var string
      */

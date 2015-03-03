@@ -12,6 +12,12 @@ use \InvalidArgumentException;
 class SizeValidator extends NumericValidator {
 
     /**
+     * Machine name of this validator
+     * @var string
+     */
+    const NAME = 'size';
+
+    /**
      * Code for the error when an array has more elements then the maximum or less elements then the minimum
      * @var string
      */

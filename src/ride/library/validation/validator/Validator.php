@@ -15,6 +15,19 @@ interface Validator {
     public function __construct(array $options = null);
 
     /**
+     * Gets the machine name of this validator
+     * @return string
+     */
+    public function getName();
+
+    /**
+     * Gets the options of this validator
+     * @param array Array with the options
+     * @return string
+     */
+    public function getOptions();
+
+    /**
      * Checks if the provided value is valid
      * @param mixed $value Value to check
      * @return boolean True when the value is valid, false otherwise

@@ -8,6 +8,12 @@ namespace ride\library\validation\validator;
 class NumericValidator extends AbstractValidator {
 
     /**
+     * Machine name of this validator
+     * @var string
+     */
+    const NAME = 'numeric';
+
+    /**
      * Code of the error when the value is not numeric
      * @var string
      */

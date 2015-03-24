@@ -24,6 +24,7 @@ class WebsiteValidatorTest extends PHPUnit_Framework_TestCase {
                 'value' => $value,
                 'regex' => $regex
             );
+
             $expectedError = new ValidationError(WebsiteValidator::CODE, WebsiteValidator::MESSAGE, $expectedParameters);
 
             $resultErrors = $validator->getErrors();
@@ -34,6 +35,7 @@ class WebsiteValidatorTest extends PHPUnit_Framework_TestCase {
 
     public function providerIsValid() {
         return array(
+           array(true, 'http://www.deconation.be/vintage-tafellamp-retro-vintage-bolvoet-groen-mat.html#.VQ73vlz5UVc'),
            array(true, 'http://www.google.com'),
            array(false, 'www.google.com'),
         );

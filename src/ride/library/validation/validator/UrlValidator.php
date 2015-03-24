@@ -291,7 +291,8 @@ class UrlValidator extends RegexValidator {
         $this->regexHttpSearch = '(' . $this->regexUchar . '|[;:@&=\\/\\[\\]])*'; // *[ uchar | ";" | ":" | "@" | "&" | "=" ] --> added / to support friendly urls
         $this->regexHttpSegment = '(' . $this->regexUchar . '|[;:@&=])*'; // *[ uchar | ";" | ":" | "@" | "&" | "=" ]
         $this->regexHttpPath = $this->regexHttpSegment . '(\\/' . $this->regexHttpSegment . ')*'; // hsegment *[ "/" hsegment ]
-        $this->regexHttp = 'http(s)?:\\/\\/' . $this->regexHostPort . '(\\/' . $this->regexHttpPath . '(\\?' . $this->regexHttpSearch . ')?)?';
+        $this->regexHttpFragment = '(' . $this->regexAlphaDigit . '|' . $this->regexSafe . ')*';
+        $this->regexHttp = 'http(s)?:\\/\\/' . $this->regexHostPort . '(\\/' . $this->regexHttpPath . '(\\?' . $this->regexHttpSearch . ')?)?(#' . $this->regexHttpFragment . ')?';
 
         $this->regexUrl = '(' . $this->regexHttp . '|' . $this->regexFtp . '|' . $this->regexFile . ')';
     }

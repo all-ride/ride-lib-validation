@@ -174,7 +174,7 @@ class SizeValidator extends NumericValidator {
             $size = count($value);
             $valueIsArray = true;
         } else {
-            $size = strlen($value);
+            $size = mb_strlen($value);
             $valueIsArray = false;
         }
 

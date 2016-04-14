@@ -49,6 +49,20 @@ abstract class AbstractValidator implements Validator {
     }
 
     /**
+     * Get an option of this validator
+     * @param string $name Name of the option
+     * @param mixed $default Default value to return when the option is not set
+     * @return mixed
+     */
+    public function getOption($name, $default = null) {
+        if (!isset($this->options[$name])) {
+            return $default;
+        }
+
+        return $this->options[$name];
+    }
+
+    /**
      * Adds an error to this validator
      * @param string $code Code or translation key for the error
      * @param string $message Message of the error

@@ -10,52 +10,13 @@ use ride\library\validation\ValidationError;
 /**
  * Constraint to ensure one of the provided properties is set
  */
-class OrConstraint implements Constraint {
+class OrConstraint extends AbstractPropertyConstraint {
 
     /**
-     * Instance of the reflection helper
-     * @var \ride\library\reflection\ReflectionHelper
+     * Default error of this constraint
+     * @var string
      */
-    protected $reflectionHelper;
-
-    /**
-     * Property names
-     * @var array
-     */
-    protected $properties;
-
-    /**
-     * Constructs a new constraint
-     * @return null
-     */
-    public function __construct(ReflectionHelper $reflectionHelper = null) {
-        if ($reflectionHelper) {
-            $this->reflectionHelper = $reflectionHelper;
-        } else {
-            $this->reflectionHelper = new ReflectionHelper();
-        }
-
-        $this->properties = array();
-        $this->error = 'error.validation.required.or';
-    }
-
-    /**
-     * Sets the error code for the validation error
-     * @param string $error
-     * @return null
-     */
-    public function setError($error) {
-        $this->error = $error;
-    }
-
-    /**
-     * Adds a property
-     * @param string $property Name of the property
-     * @return null
-     */
-    public function addProperty($property) {
-        $this->properties[$property] = true;
-    }
+    const ERROR = 'error.validation.required.or';
 
     /**
      * Constrains the provided instance

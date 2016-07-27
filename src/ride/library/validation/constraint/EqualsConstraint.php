@@ -9,43 +9,13 @@ use ride\library\validation\ValidationError;
 /**
  * Constraint to ensure the same value in different properties
  */
-class EqualsConstraint implements Constraint {
+class EqualsConstraint extends AbstractPropertyConstraint {
 
     /**
-     * Instance of the reflection helper
-     * @var \ride\library\reflection\ReflectionHelper
+     * Default error of this constraint
+     * @var string
      */
-    protected $reflectionHelper;
-
-    /**
-     * Property names
-     * @var array
-     */
-    protected $properties;
-
-    /**
-     * Constructs a new generic constraint
-     * @return null
-     */
-    public function __construct(ReflectionHelper $reflectionHelper = null) {
-        if ($reflectionHelper) {
-            $this->reflectionHelper = $reflectionHelper;
-        } else {
-            $this->reflectionHelper = new ReflectionHelper();
-        }
-
-        $this->properties = array();
-    }
-
-    /**
-     * Adds a property which should have the same value as other assigned
-     * properties
-     * @param string $property Name of the property
-     * @return null
-     */
-    public function addProperty($property) {
-        $this->properties[$property] = true;
-    }
+    const ERROR = 'error.validation.equals';
 
     /**
      * Constrains the provided instance
@@ -79,7 +49,7 @@ class EqualsConstraint implements Constraint {
 
                 $firstField = $property;
             } elseif ($equalsValue !== $value) {
-                $exception->addError($property, new ValidationError('error.validation.equals', 'Value should be the same as the ' . $firstField . ' field'));
+                $exception->addError($property, new ValidationError($this->error, 'Value should be the same as the ' . $firstField . ' field'));
             }
         }
 

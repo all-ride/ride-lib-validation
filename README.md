@@ -416,7 +416,7 @@ function foo(ValidationFactory $factory) {
     // constrain a data container
     $data = array(
         'title' => ' My Title  ',
-        'description => null,
+        'description' => null,
         'type' => 'url',
         'node' => null,
         'url' => null,

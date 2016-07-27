@@ -81,10 +81,11 @@ class OrConstraint implements Constraint {
         $validator = new RequiredValidator();
         $isValid = false;
 
+        $requiredException = new ValidationException();
         foreach ($this->properties as $property => $null) {
             $value = $this->reflectionHelper->getProperty($instance, $property);
 
-            if ($validator->isValid($value)) {
+            if ($validator->isValid($value, $requiredException)) {
                 $isValid = true;
 
                 break;

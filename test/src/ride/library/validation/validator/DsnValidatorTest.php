@@ -19,6 +19,9 @@ class DsnValidatorTest extends PHPUnit_Framework_TestCase {
         return array(
             array(true, 'mysql://localhost/database'),
             array(true, 'mysql://username:password@localhost:3306/database'),
+            array(true, 'mysql://username:password@4g-web/database'),
+            array(true, 'mysql://username:password@4g.web/database'),
+            array(false, 'mysql://username:password@web.4g/database'),
             array(false, 'mysql://username:password@localhost:3306//database'),
             array(false, 'mysql://username:password@localhost:3306'),
             array(false, 'mysql://username:password@localhost:3306/'),

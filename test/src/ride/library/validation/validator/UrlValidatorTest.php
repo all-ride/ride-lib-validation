@@ -702,16 +702,23 @@ class UrlValidatorTest extends PHPUnit_Framework_TestCase {
     public function testRegexHostName() {
         $tests = array(
             array(
-                'value' => 'username.3r',
-                'expected' => false,
-            ),
-            array(
                 'value' => '=&6D',
                 'expected' => false,
             ),
             array(
                 'value' => 'test-pc',
                 'expected' => true,
+            ),
+        );
+
+        $this->performRegexTest($tests, 'regexHostName');
+    }
+
+    public function testRegexHostDomain() {
+        $tests = array(
+            array(
+                'value' => 'username.3r',
+                'expected' => false,
             ),
             array(
                 'value' => 'test-pc.be',
@@ -723,7 +730,7 @@ class UrlValidatorTest extends PHPUnit_Framework_TestCase {
             ),
         );
 
-        $this->performRegexTest($tests, 'regexHostName');
+        $this->performRegexTest($tests, 'regexHostDomain');
     }
 
     public function testRegexHostPort() {

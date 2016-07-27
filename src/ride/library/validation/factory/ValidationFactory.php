@@ -8,6 +8,13 @@ namespace ride\library\validation\factory;
 interface ValidationFactory {
 
     /**
+     * Creates a constraint
+     * @param string $name Machine name of the constraint
+     * @return \ride\library\validation\constraint\Constraint
+     */
+    public function createConstraint($name);
+
+    /**
      * Creates a filter
      * @param string $name Machine name of the filter
      * @param array $options Options to construct the filter

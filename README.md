@@ -445,6 +445,7 @@ function foo(ValidationFactory $factory) {
     $result = $requiredValidator->isValid($requiredValidator); // true
     
     // constrain a data container
+    // we're using an array but this can be an object with getters and setters as well
     $data = array(
         'title' => ' My Title  ',
         'description' => null,

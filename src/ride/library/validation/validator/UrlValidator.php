@@ -153,6 +153,12 @@ class UrlValidator extends RegexValidator {
     protected $regexHostName;
 
     /**
+     * Regular expression for a host name value
+     * @var string
+     */
+    protected $regexHostDomain;
+
+    /**
      * Regular expression for a host value
      * @var string
      */
@@ -276,8 +282,9 @@ class UrlValidator extends RegexValidator {
         $this->regexPort = $this->regexDigits; // digits
 
         $this->regexHostNumber = $this->regexDigits . '\\.' . $this->regexDigits . '\\.' . $this->regexDigits . '\\.' . $this->regexDigits; // digits "." digits "." digits "." digits
-        $this->regexHostName = '(' . $this->regexDomainLabel . '\\.)*' . $this->regexTopLabel; // *[ domainlabel "." ] toplabel --> changed 1 or more to 0 or more to valid local hostnames
-        $this->regexHost = '(' . $this->regexHostNumber . '|' . $this->regexHostName . ')'; // hostname | hostnumber
+        $this->regexHostName = $this->regexDomainLabel;
+        $this->regexHostDomain = '(' . $this->regexDomainLabel . '\\.)*' . $this->regexDomainLabel . '\\.' . $this->regexTopLabel; // *[ domainlabel "." ] toplabel --> changed 1 or more to 0 or more to valid local hostnames
+        $this->regexHost = '(' . $this->regexHostNumber . '|' . $this->regexHostName . '|' . $this->regexHostDomain . ')'; // hostname | hostnumber
         $this->regexHostPort = $this->regexHost . '(:' . $this->regexPort . ')?'; // host [ ":" port ]
         $this->regexLogin = '(' . $this->regexUser . '(:' . $this->regexPassword . ')?@)?' . $this->regexHostPort; // [ user [ ":" password ] "@" ] hostport
 

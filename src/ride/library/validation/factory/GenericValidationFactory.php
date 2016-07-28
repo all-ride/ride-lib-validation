@@ -2,7 +2,17 @@
 
 namespace ride\library\validation\factory;
 
+use ride\library\validation\constraint\ChainConstraint;
+use ride\library\validation\constraint\ConditionalConstraint;
+use ride\library\validation\constraint\EqualsConstraint;
+use ride\library\validation\constraint\GenericConstraint;
+use ride\library\validation\constraint\OrConstraint;
+use ride\library\validation\filter\AllowCharacterFilter;
+use ride\library\validation\filter\LowerCaseFilter;
+use ride\library\validation\filter\ReplaceFilter;
+use ride\library\validation\filter\SafeStringFilter;
 use ride\library\validation\filter\TrimFilter;
+use ride\library\validation\filter\UpperCaseFilter;
 use ride\library\validation\validator\ClassValidator;
 use ride\library\validation\validator\DsnValidator;
 use ride\library\validation\validator\EmailValidator;
@@ -24,6 +34,42 @@ use \Exception;
 class GenericValidationFactory implements ValidationFactory {
 
     /**
+     * Creates a constraint
+     * @param string $name Machine name of the constraint
+     * @return \ride\library\validation\constraint\Constraint
+     */
+    public function createConstraint($name) {
+        switch ($name) {
+            case 'chain':
+                $constraint = new ChainConstraint();
+
+                break;
+            case 'conditional':
+                $constraint = new ConditionalConstraint();
+
+                break;
+            case 'equals':
+                $constraint = new EqualsConstraint();
+
+                break;
+            case 'generic':
+                $constraint = new GenericConstraint();
+
+                break;
+            case 'or':
+                $constraint = new OrConstraint();
+
+                break;
+            default:
+                throw new Exception('Could not create constraint with name ' . $name . ': no constraint defined with this name');
+
+                break;
+        }
+
+        return $constraint;
+    }
+
+    /**
      * Creates a filter
      * @param string $name Machine name of the filter
      * @param array $options Options to construct the filter
@@ -31,8 +77,28 @@ class GenericValidationFactory implements ValidationFactory {
      */
     public function createFilter($name, array $options) {
         switch ($name) {
+            case 'characters':
+                $filter = new AllowCharacterFilter($options);
+
+                break;
+            case 'lower':
+                $filter = new LowerCaseFilter($options);
+
+                break;
+            case 'replace':
+                $filter = new ReplaceFilter($options);
+
+                break;
+            case 'safeString':
+                $filter = new SafeStringFilter($options);
+
+                break;
             case 'trim':
                 $filter = new TrimFilter($options);
+
+                break;
+            case 'upper':
+                $filter = new UpperCaseFilter($options);
 
                 break;
             default:
@@ -107,7 +173,6 @@ class GenericValidationFactory implements ValidationFactory {
         }
 
         return $validator;
-
     }
 
 }

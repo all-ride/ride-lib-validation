@@ -2,6 +2,8 @@
 
 namespace ride\library\validation\filter;
 
+use \InvalidArgumentException;
+
 /**
  * Filter to replace parts in scalar values
  */

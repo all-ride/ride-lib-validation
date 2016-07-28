@@ -2,7 +2,37 @@
 
 Validation library of the PHP Ride framework.
 
-## Filter
+- [Filters](#filters)
+  * [AllowCharacterFilter](#allowcharacterfilter-characters)
+  * [LowerCaseFilter](#lowercasefilter-lower)
+  * [ReplaceFilter](#replacefilter-replace)
+  * [SafeStringFilter](#safestringfilter-safestring)
+  * [TrimFilter](#trimfilter-trim)
+  * [UpperCaseFilter](#uppercasefilter-upper)
+- [Validators](#validators)
+  * [ClassValidator](#classvalidator-class)
+  * [DsnValidator](#dsnvalidator-dsn)
+  * [EmailValidator](#emailvalidator-email)
+  * [FileExtensionValidator](#fileextensionvalidator-extension)
+  * [MinMaxValidator](#minmaxvalidator-minmax)
+  * [NumericValidator](#numericvalidator-numeric)
+  * [RegexValidator](#regexvalidator-regex)
+  * [RequiredValdiator](#requiredvalidator-required)
+  * [SizeValidator](#sizevalidator-size)
+  * [UrlValidator](#urlvalidator-url)
+  * [WebsiteValdiator](#websitevalidator-website)
+- [Constraints](#constraints)
+  * [GenericConstraint](#genericconstraint-generic)
+  * [OrConstraint](#orconstraint-or)
+  * [EqualsConstraint](#equalsconstraint-equals)
+  * [ConditionalConstraint](#conditionalconstraint-conditional)
+  * [ChainConstraint](#chainconstraint-chain)
+- [ValidationFactory](#validationfactory)
+- [ValidationError](#validationerror)
+- [ValidationException](#validationexception)
+- [Code Sample](#code-sample)
+
+## Filters
 
 The _Filter_ interface is used to pre-process a value to fix input automatically.
 A filter should return the original value if it can't handle the input type.
@@ -52,7 +82,7 @@ Transforms all lower case characters to upper case.
 
 This filter has no options.
 
-## Validator
+## Validators
 
 The _Validator_ interface is used to validate a single value.
 
@@ -228,7 +258,7 @@ This validator generates the following errors:
 * __error.validation.required__: required error message
 * __error.validation.website__: default error message
 
-## Constraint
+## Constraints
 
 The _Constraint_ interface is used to validate a data container.
 A data container can be an array or an object.
@@ -397,6 +427,7 @@ It contains all the occured errors which can be obtained in their entirety or on
 ```php
 <?php
 
+use ride\library\validation\exception\ValidationException;
 use ride\library\validation\factory\ValidationFactory;
 
 function foo(ValidationFactory $factory) {

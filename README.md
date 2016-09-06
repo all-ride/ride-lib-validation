@@ -7,6 +7,7 @@ Validation library of the PHP Ride framework.
   * [LowerCaseFilter](#lowercasefilter-lower)
   * [ReplaceFilter](#replacefilter-replace)
   * [SafeStringFilter](#safestringfilter-safestring)
+  * [StripTagsFilter](#striptagsfilter-striptags)
   * [TrimFilter](#trimfilter-trim)
   * [UpperCaseFilter](#uppercasefilter-upper)
 - [Validators](#validators)
@@ -66,6 +67,14 @@ This filter has the following options:
 
 - __replacement__: replacement for special characters, defaults to - (string|optional)
 - __lower__: transform to lower case, defaults to true (boolean|optional)
+
+### StripTagsFilter (striptags)
+
+Strips HTML and PHP tags from a string, using PHP's internal [strips_tags](http://php.net/manual/en/function.strip-tags.php) function
+
+This filter has the following option:
+
+* __allowedTags__: a set of html tags that are allowed and won't be stripped, for example: `<p><strong>`.
 
 ### TrimFilter (trim)
 

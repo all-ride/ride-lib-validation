@@ -11,6 +11,7 @@ use ride\library\validation\filter\AllowCharacterFilter;
 use ride\library\validation\filter\LowerCaseFilter;
 use ride\library\validation\filter\ReplaceFilter;
 use ride\library\validation\filter\SafeStringFilter;
+use ride\library\validation\filter\StripTagsFilter;
 use ride\library\validation\filter\TrimFilter;
 use ride\library\validation\filter\UpperCaseFilter;
 use ride\library\validation\validator\ClassValidator;
@@ -91,6 +92,10 @@ class GenericValidationFactory implements ValidationFactory {
                 break;
             case 'safeString':
                 $filter = new SafeStringFilter($options);
+
+                break;
+            case 'stripTags':
+                $filter = new StripTagsFilter($options);
 
                 break;
             case 'trim':

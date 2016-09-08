@@ -278,7 +278,7 @@ class UrlValidator extends RegexValidator {
         $this->regexUser = '(' . $this->regexUchar . '|[;?&=])+'; // *[ uchar | ";" | "?" | "&" | "=" ]
         $this->regexPassword = '(' . $this->regexUchar . '|[;?&=])+'; // *[ uchar | ";" | "?" | "&" | "=" ]
         $this->regexTopLabel = '(' . $this->regexAlpha . '|' . $this->regexAlpha . '(' . $this->regexAlphaDigit . '|-)*' . $this->regexAlphaDigit . ')'; // alpha | alpha *[ alphadigit | "-" ] alphadigit
-        $this->regexDomainLabel = '(' . $this->regexAlphaDigitUnicode . '|' . $this->regexAlphaDigitUnicode . '(' . $this->regexAlphaDigitUnicode . '|-)*' . $this->regexAlphaDigitUnicode . ')'; // alphadigit | alphadigit *[ alphadigit | "-" ] alphadigit
+        $this->regexDomainLabel = '(' . $this->regexAlphaDigitUnicode . '|' . $this->regexAlphaDigitUnicode . '(' . $this->regexAlphaDigitUnicode . '|-|_)*' . $this->regexAlphaDigitUnicode . ')'; // alphadigit | alphadigit *[ alphadigit | "-" ] alphadigit
         $this->regexPort = $this->regexDigits; // digits
 
         $this->regexHostNumber = $this->regexDigits . '\\.' . $this->regexDigits . '\\.' . $this->regexDigits . '\\.' . $this->regexDigits; // digits "." digits "." digits "." digits

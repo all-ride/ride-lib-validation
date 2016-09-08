@@ -665,7 +665,7 @@ class UrlValidatorTest extends PHPUnit_Framework_TestCase {
             ),
             array(
                 'value' => 'test_pc',
-                'expected' => false,
+                'expected' => true,
             ),
         );
 
@@ -709,6 +709,10 @@ class UrlValidatorTest extends PHPUnit_Framework_TestCase {
                 'value' => 'test-pc',
                 'expected' => true,
             ),
+            array(
+                'value' => 'test_pc',
+                'expected' => true,
+            ),
         );
 
         $this->performRegexTest($tests, 'regexHostName');
@@ -722,6 +726,10 @@ class UrlValidatorTest extends PHPUnit_Framework_TestCase {
             ),
             array(
                 'value' => 'test-pc.be',
+                'expected' => true,
+            ),
+            array(
+                'value' => 'test_pc.be',
                 'expected' => true,
             ),
             array(

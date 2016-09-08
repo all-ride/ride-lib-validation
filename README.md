@@ -2,6 +2,8 @@
 
 Validation library of the PHP Ride framework.
 
+## What's In This Library
+
 - [Filters](#filters)
   * [AllowCharacterFilter](#allowcharacterfilter-characters)
   * [LowerCaseFilter](#lowercasefilter-lower)
@@ -33,14 +35,14 @@ Validation library of the PHP Ride framework.
 - [ValidationException](#validationexception)
 - [Code Sample](#code-sample)
 
-## Filters
+### Filters
 
 The _Filter_ interface is used to pre-process a value to fix input automatically.
 A filter should return the original value if it can't handle the input type.
 
 Different implementations are available.
 
-### AllowCharacterFilter (characters)
+#### AllowCharacterFilter (characters)
 
 Filters all non-allowed characters from a string.
 
@@ -48,13 +50,13 @@ This filter has the following option:
 
 - __characters__: all allowed characters, characters not found in this string, will be trimmed out (string)
 
-### LowerCaseFilter (lower)
+#### LowerCaseFilter (lower)
 
 Transforms all upper case characters to lower case.
 
 This filter has no options.
 
-### ReplaceFilter (replace)
+#### ReplaceFilter (replace)
 
 Replaces values in a string.
 
@@ -63,12 +65,12 @@ This filter has the following options:
 - __search__: string to search for (string)
 - __replacement__: replacement for the matches of search (string|optional)
 
-### SafeStringFilter (safeString)
+#### SafeStringFilter (safeString)
 
 - __replacement__: replacement for special characters, defaults to - (string|optional)
 - __lower__: transform to lower case, defaults to true (boolean|optional)
 
-### StripTagsFilter (striptags)
+#### StripTagsFilter (stripTags)
 
 Strips HTML and PHP tags from a string, using PHP's internal [strips_tags](http://php.net/manual/en/function.strip-tags.php) function
 
@@ -76,7 +78,7 @@ This filter has the following option:
 
 * __allowedTags__: a set of html tags that are allowed and won't be stripped, for example: `<p><strong>`.
 
-### TrimFilter (trim)
+#### TrimFilter (trim)
 
 Trims the provided value from spaces.
 
@@ -85,19 +87,19 @@ This filter has the following options:
 * __trim.lines__: trim all lines, or values if the provided value is an array (boolean|optional)
 * __trim.empty__: remove empty lines or values, only when _trim.lines_ is enabled (boolean|optional)
 
-### UpperCaseFilter (upper)
+#### UpperCaseFilter (upper)
 
 Transforms all lower case characters to upper case.
 
 This filter has no options.
 
-## Validators
+### Validators
 
 The _Validator_ interface is used to validate a single value.
 
 Different implementations are available.
 
-### ClassValidator (class)
+#### ClassValidator (class)
 
 Checks if the provided string is a valid class name
 
@@ -112,7 +114,7 @@ This validator generates the following errors:
 * __error.validation.class.extends__: when the class does not extend the required class
 * __error.validation.class.implements__: when the class does not implement the required interface
 
-### DsnValidator (dsn)
+#### DsnValidator (dsn)
 
 Checks if the provided string is a valid DSN.
 
@@ -125,7 +127,7 @@ This validator generates the following errors:
 * __error.validation.dsn__: default error message (string|optional)
 * __error.validation.required__: required error message (string|optional)
 
-### EmailValidator (email)
+#### EmailValidator (email)
 
 Checks if the provided value is a valid email address.
 
@@ -138,7 +140,7 @@ This validator generates the following errors:
 * __error.validation.email__: default error message
 * __error.validation.required__: required error message
 
-### FileExtensionValidator (extension)
+#### FileExtensionValidator (extension)
 
 Checks if the provided path string has an allowed extension.
 
@@ -152,7 +154,7 @@ This validator generates the following errors:
 * __error.validation.file.extension__: default error message
 * __error.validation.required__: required error message
 
-### MinMaxValidator (minmax)
+#### MinMaxValidator (minmax)
 
 Checks if the provided numeric value is in the provided range.
 
@@ -176,7 +178,7 @@ This validator generates the following errors:
 * __error.validation.minmax__: when the value is less then the provided minimum or greater then the provided maximum
 * __error.validation.required__: required error message
 
-### NumericValidator (numeric)
+#### NumericValidator (numeric)
 
 Checks if the provided value is a numeric value.
 
@@ -190,7 +192,7 @@ This validator generates the following error:
 * __error.validation.numeric__: default error message
 * __error.validation.required__: required error message
 
-### RegexValidator (regex)
+#### RegexValidator (regex)
 
 Checks if the provided string matches a regular expression.
 
@@ -206,7 +208,7 @@ This validator generates the following errors:
 * __error.validation.regex__: default error message
 * __error.validation.required__: required error message
 
-### RequiredValdiator (required)
+#### RequiredValdiator (required)
 
 Checks if a value is provided
 
@@ -218,7 +220,7 @@ This validator generates the following error:
 
 * __error.validation.required__: required error message
 
-### SizeValidator (size)
+#### SizeValidator (size)
 
 Checks if the length of the provided string or the size of the provided array.
 
@@ -240,7 +242,7 @@ This validator generates the following errors:
 * __error.validation.minmax.string__: when the size of a string is less then the provided minimum or greater then the provided maximum
 * __error.validation.object__: when the value is an object
 
-### UrlValidator (url)
+#### UrlValidator (url)
 
 Checks if the provided string is a valid URL.
 
@@ -253,7 +255,7 @@ This validator generates the following errors:
 * __error.validation.required__: required error message
 * __error.validation.url__: default error message
 
-### WebsiteValdiator (website)
+#### WebsiteValdiator (website)
 
 Checks if the provided string is a valid website.
 This is the same as the URL validator but limited to http(s)://.
@@ -267,14 +269,14 @@ This validator generates the following errors:
 * __error.validation.required__: required error message
 * __error.validation.website__: default error message
 
-## Constraints
+### Constraints
 
 The _Constraint_ interface is used to validate a data container.
 A data container can be an array or an object.
 
 Different implementations are available.
 
-### GenericConstraint (generic)
+#### GenericConstraint (generic)
 
 The _GenericConstraint_ is a combination of filters and validators which can be applied on specific properties of the data container.
 
@@ -299,7 +301,7 @@ function foo(ValidationFactory $factory) {
 
 This constraint will trim and require the _name_ and _description_ properties to pass.
 
-### OrConstraint (or)
+#### OrConstraint (or)
 
 The _OrConstraint_ defines a set of properties for which at least one has to be provided.
 When constraining, it will add a validation error to all properties when none of them is provided.
@@ -323,7 +325,7 @@ function foo(ValidationFactory $factory) {
 
 This constraint will fail when both _firstName_ and _displayName_ are empty.
 
-### EqualsConstraint (equals)
+#### EqualsConstraint (equals)
 
 The _EqualsConstraint_ defines a set of properties which have to have the same value.
 Usefull when asking to repeat a new password.
@@ -347,7 +349,7 @@ function foo(ValidationFactory $factory) {
 
 This constraint will fail when _password_ and _repeatPassword_ are not the same value.
 
-### ConditionalConstraint (conditional)
+#### ConditionalConstraint (conditional)
 
 The _ConditionalConstraint_ is a generic constraint which only validates when defined properties contain a specific value.
 Usefull for properties which are dependant on a type or status.
@@ -370,7 +372,7 @@ function foo(ValidationFactory $factory) {
 
 This constraint will require the _url_ property when the _type_ property is set to _"url"_.
 
-### ChainConstraint (chain)
+#### ChainConstraint (chain)
 
 The _ChainConstraint_ is used to combine different constraints together into one.
 Usefull to build a full validation for a complex data type.
@@ -415,18 +417,18 @@ The _type_ property is also required.
 When the value for the _type_ property is _"url"_, the _url_ property is required after being trimmed.
 The same for the _node_ property when the value of the _type_ property is _"node"_.
 
-## ValidationFactory
+### ValidationFactory
 
 The _ValidationFactory_ is used to construct new validation instances from this library.
 You can use is to create filters, validators and constraints on a name basis.
 
-## ValidationError
+### ValidationError
 
 A _ValidationError_ is an error of a single validator.
 Validators will keep the errors of the last validate call.
 Constraints will gather the occured errors and collect them in a _ValidationException_.
 
-## ValidationException
+### ValidationException
 
 A _ValidationException_ is thrown by the constraint implementations after validation is done.
 It contains all the occured errors which can be obtained in their entirety or only for specific properties.  
@@ -475,3 +477,17 @@ function foo(ValidationFactory $factory) {
     }
 }
 ```
+
+### Implementations
+
+For more examples, you can check the following implementation of this library:
+- [ride/app-validation](https://github.com/all-ride/ride-app-validation)
+
+## Installation
+
+You can use [Composer](http://getcomposer.org) to install this library.
+
+```
+composer require ride/lib-validation
+```
+

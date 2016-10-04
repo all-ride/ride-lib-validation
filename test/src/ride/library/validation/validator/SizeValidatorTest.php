@@ -30,6 +30,24 @@ class SizeValidatorTest extends PHPUnit_Framework_TestCase {
         new SizeValidator(array('maximum' => 'invalid'));
     }
 
+    public function testIsValidWithObject() {
+        $minimum = 4;
+
+        $validator = new SizeValidator(array('minimum' => $minimum));
+
+        $result = $validator->isValid($this);
+        $this->assertEquals(false, $result);
+
+        $expectedParameters = array(
+           'value' => get_class($this),
+        );
+        $expectedErrors = array(new ValidationError(SizeValidator::CODE_OBJECT, SizeValidator::MESSAGE_OBJECT, $expectedParameters));
+
+        $resultErrors = $validator->getErrors();
+
+        $this->assertEquals($expectedErrors, $resultErrors);
+    }
+
     /**
      * @dataProvider providerTestIsValidWithMinimum
      */

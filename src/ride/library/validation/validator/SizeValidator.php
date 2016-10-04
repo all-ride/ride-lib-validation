@@ -165,7 +165,7 @@ class SizeValidator extends NumericValidator {
         $this->resetErrors();
 
         if (is_object($value)) {
-            $this->addError(new ValidationError(self::CODE_OBJECT, self::MESSAGE_OBJECT, array('value' => $value)));
+            $this->addValidationError(self::CODE_OBJECT, self::MESSAGE_OBJECT, array('value' => get_class($value)));
 
             return false;
         }

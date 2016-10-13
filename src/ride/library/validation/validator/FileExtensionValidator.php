@@ -59,7 +59,12 @@ class FileExtensionValidator extends AbstractValidator {
 
         $this->extensions = array();
         if (isset($options[self::OPTION_EXTENSIONS])) {
-            $extensions = explode(',', $options[self::OPTION_EXTENSIONS]);
+            $extensions = $options[self::OPTION_EXTENSIONS];
+
+            if (!is_array($extensions)) {
+                $extensions = explode(',', $options[self::OPTION_EXTENSIONS]);
+            }
+
             foreach ($extensions as $extension) {
                 $extension = trim($extension);
                 $this->extensions[$extension] = $extension;

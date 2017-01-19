@@ -65,8 +65,13 @@ class JsonValidator extends AbstractValidator {
     public function isValid($value) {
         $this->resetErrors();
 
-        if (!$this->isRequired && empty($value)) {
+        $isEmpty = empty($value);
+        if (!$this->isRequired && $isEmpty) {
             return true;
+        } elseif ($isEmpty) {
+            $this->addValidationError(RequiredValidator::CODE, RequiredValidator::MESSAGE, array());
+
+            return false;
         }
 
         $result = json_decode($value, true);

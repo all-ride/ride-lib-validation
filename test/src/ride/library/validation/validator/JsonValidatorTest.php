@@ -11,19 +11,13 @@ class JsonValidatorTest extends PHPUnit_Framework_TestCase {
     /**
      * @dataProvider providerIsValid
      */
-    public function testIsValid($expected, $value, $expectedMessage = null) {
+    public function testIsValid($expected, $value, $expectedError = null) {
         $validator = new JsonValidator();
 
         $result = $validator->isValid($value);
         $this->assertEquals($expected, $result);
 
         if (!$expected) {
-            $expectedParameters = array(
-                'value' => $value,
-                'message' => $expectedMessage,
-            );
-            $expectedError = new ValidationError(JsonValidator::CODE, JsonValidator::MESSAGE, $expectedParameters);
-
             $resultErrors = $validator->getErrors();
 
             $this->assertEquals(array($expectedError), $resultErrors);
@@ -32,13 +26,17 @@ class JsonValidatorTest extends PHPUnit_Framework_TestCase {
 
     public function providerIsValid() {
         return array(
-           array(false, null, 'Syntax error'),
-           array(false, '', 'Syntax error'),
-           array(true, 15),
-           array(true, '"test"'),
-           array(true, '{}'),
-           array(true, '{ "value": 15 }'),
-       );
+            array(false, null, new ValidationError(RequiredValidator::CODE, RequiredValidator::MESSAGE)),
+            array(false, '', new ValidationError(RequiredValidator::CODE, RequiredValidator::MESSAGE)),
+            array(false, '{ sme', new ValidationError(JsonValidator::CODE, JsonValidator::MESSAGE, array(
+                'value' => '{ sme',
+                'message' => 'Syntax error',
+            ))),
+            array(true, 15),
+            array(true, '"test"'),
+            array(true, '{}'),
+            array(true, '{ "value": 15 }'),
+        );
     }
 
 }

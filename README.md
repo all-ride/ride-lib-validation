@@ -17,6 +17,7 @@ Validation library of the PHP Ride framework.
   * [DsnValidator](#dsnvalidator-dsn)
   * [EmailValidator](#emailvalidator-email)
   * [FileExtensionValidator](#fileextensionvalidator-extension)
+  * [JsonValidator](#jsonvalidator-json)
   * [MinMaxValidator](#minmaxvalidator-minmax)
   * [NumericValidator](#numericvalidator-numeric)
   * [RegexValidator](#regexvalidator-regex)
@@ -152,6 +153,19 @@ This validator has the following options:
 This validator generates the following errors:
 
 * __error.validation.file.extension__: default error message
+* __error.validation.required__: required error message
+
+#### JsonValidator (json)
+
+Checks if the json string is valid.
+
+This validator has the following options:
+
+* __required__: flag to see if a value is required (boolean|optional)
+
+This validator generates the following errors:
+
+* __error.validation.json__: default error message
 * __error.validation.required__: required error message
 
 #### MinMaxValidator (minmax)

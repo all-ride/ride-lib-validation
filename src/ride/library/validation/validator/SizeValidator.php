@@ -132,7 +132,7 @@ class SizeValidator extends NumericValidator {
      * @throws Exception when no minimum or maximum option is provided
      * @throws Exception when no minimum or maximum is not a valid value
      */
-    public function __construct(array $options = array()) {
+    public function __construct(array $options = null) {
         parent::__construct($options);
 
         if (!isset($options[self::OPTION_MINIMUM]) && !isset($options[self::OPTION_MAXIMUM])) {

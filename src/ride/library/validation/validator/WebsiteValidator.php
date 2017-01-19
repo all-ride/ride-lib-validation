@@ -30,7 +30,7 @@ class WebsiteValidator extends UrlValidator {
      * @param array $options Options for this validator
      * @return null
      */
-    public function __construct(array $options = array()) {
+    public function __construct(array $options = null) {
         parent::__construct($options);
 
         $this->regex = '/^' . $this->regexHttp . '$/';

@@ -22,8 +22,7 @@ interface Validator {
 
     /**
      * Gets the options of this validator
-     * @param array Array with the options
-     * @return string
+     * @return array Array with the options
      */
     public function getOptions();
 

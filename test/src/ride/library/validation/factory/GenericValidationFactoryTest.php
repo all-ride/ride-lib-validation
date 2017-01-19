@@ -84,18 +84,18 @@ class GenericValidationFactoryTest extends PHPUnit_Framework_TestCase {
 
     public function providerCreateValidator() {
         return array(
-            array(new ClassValidator(), 'class'),
-            array(new DsnValidator(), 'dsn'),
-            array(new EmailValidator(), 'email'),
-            array(new FileExtensionValidator(), 'extension'),
+            array(new ClassValidator(array()), 'class'),
+            array(new DsnValidator(array()), 'dsn'),
+            array(new EmailValidator(array()), 'email'),
+            array(new FileExtensionValidator(array()), 'extension'),
             array(new MinMaxValidator(array('minimum' => 5)), 'minmax', array('minimum' => 5)),
-            array(new NestedValidator(), 'nested'),
-            array(new NumericValidator(), 'numeric'),
+            array(new NestedValidator(array()), 'nested'),
+            array(new NumericValidator(array()), 'numeric'),
             array(new RegexValidator(array('regex' => '/foo/')), 'regex', array('regex' => '/foo/')),
-            array(new RequiredValidator(), 'required'),
+            array(new RequiredValidator(array()), 'required'),
             array(new SizeValidator(array('maximum' => 15)), 'size', array('maximum' => 15)),
-            array(new UrlValidator(), 'url'),
-            array(new WebsiteValidator(), 'website'),
+            array(new UrlValidator(array()), 'url'),
+            array(new WebsiteValidator(array()), 'website'),
         );
     }
 

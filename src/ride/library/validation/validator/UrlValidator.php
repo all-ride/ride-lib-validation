@@ -241,7 +241,7 @@ class UrlValidator extends RegexValidator {
      * @param array $options Options for this validator
      * @return null
      */
-    public function __construct(array $options = array()) {
+    public function __construct(array $options = null) {
         $this->initRegularExpressions();
 
         $options[RegexValidator::OPTION_REGEX] = '/^' . $this->regexUrl . '$/';

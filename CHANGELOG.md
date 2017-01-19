@@ -1,4 +1,4 @@
-## [1.2.0]
+## [1.2.0] - 2017-01-19
 ### Added
 - added json validator
 ### Updated

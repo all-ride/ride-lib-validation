@@ -87,7 +87,7 @@ class RegexValidator extends AbstractValidator {
      * @return null
      * @throws Exception when the regex option is empty or not a string
      */
-    public function __construct(array $options = array()) {
+    public function __construct(array $options = null) {
         parent::__construct($options);
 
         if (!isset($options[self::OPTION_REGEX])) {

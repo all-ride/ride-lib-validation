@@ -31,7 +31,7 @@ class DsnValidator extends UrlValidator {
      * implementation
      * @return null
      */
-    public function __construct(array $options = array()) {
+    public function __construct(array $options = null) {
         parent::__construct($options);
 
         $tokenChars = $this->regexAlphaDigit . '|[_-]|\\.';

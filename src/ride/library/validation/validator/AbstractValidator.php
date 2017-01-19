@@ -26,7 +26,7 @@ abstract class AbstractValidator implements Validator {
      * @param array $options options for the validator
      * @return null
      */
-    public function __construct(array $options = array()) {
+    public function __construct(array $options = null) {
         $this->options = $options;
         $this->errors = array();
     }
@@ -41,11 +41,10 @@ abstract class AbstractValidator implements Validator {
 
     /**
      * Gets the options of this validator
-     * @param array Array with the options
-     * @return string
+     * @return array Array with the options
      */
     public function getOptions() {
-        return $this->options;
+        return $this->options ? $this->options : array();
     }
 
     /**

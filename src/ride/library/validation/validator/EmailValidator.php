@@ -30,7 +30,7 @@ class EmailValidator extends UrlValidator {
      * @param array $options options for this validator
      * @return null
      */
-    public function __construct(array $options = array()) {
+    public function __construct(array $options = null) {
         parent::__construct($options);
 
         $regexEmail = '(' . $this->regexAlphaDigit . '|' . $this->regexSafe . ')+@' . $this->regexHostDomain;

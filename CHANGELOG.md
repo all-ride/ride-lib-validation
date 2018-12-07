@@ -1,3 +1,7 @@
+## [1.2.1] - 2018-12-07
+### Updated
+- allow tilde (~) in HTTP URL path
+
 ## [1.2.0] - 2017-01-19
 ### Added
 - added json validator

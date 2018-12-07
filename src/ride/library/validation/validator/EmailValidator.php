@@ -8,12 +8,6 @@ namespace ride\library\validation\validator;
 class EmailValidator extends UrlValidator {
 
     /**
-     * Machine name of this validator
-     * @var string
-     */
-    const NAME = 'email';
-
-    /**
      * Code for the error when the value is not a valid e-mail address
      * @var string
      */

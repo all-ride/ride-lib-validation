@@ -39,7 +39,7 @@ class WebsiteValidatorTest extends PHPUnit_Framework_TestCase {
            array(true, 'http://www.annaandjack.be/#!geboorte/c1myr'),
            array(true, 'http://www.google.com'),
            array(false, 'www.google.com'),
-        );
+       );
     }
 
 }

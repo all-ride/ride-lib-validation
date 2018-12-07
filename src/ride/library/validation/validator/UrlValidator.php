@@ -296,7 +296,7 @@ class UrlValidator extends RegexValidator {
         $this->regexFile = 'file:\\/\\/(' . $this->regexHost . '|localhost)\\/' . $this->regexFtpPath;
 
         $this->regexHttpSearch = '(' . $this->regexUchar . '|[;:@&=\\/\\[\\]])*'; // *[ uchar | ";" | ":" | "@" | "&" | "=" ] --> added / to support friendly urls
-        $this->regexHttpSegment = '(' . $this->regexUchar . '|[;:@&=])*'; // *[ uchar | ";" | ":" | "@" | "&" | "=" ]
+        $this->regexHttpSegment = '(' . $this->regexUchar . '|[;:@&=~])*'; // *[ uchar | ";" | ":" | "@" | "&" | "=" ]
         $this->regexHttpPath = $this->regexHttpSegment . '(\\/' . $this->regexHttpSegment . ')*'; // hsegment *[ "/" hsegment ]
         $this->regexHttpFragment = '(' . $this->regexAlphaDigit . '|' . $this->regexEscape . '|' . $this->regexSafe . '|' . $this->regexExtra . '|' . $this->regexReserved . ')*';
         $this->regexHttp = 'http(s)?:\\/\\/' . $this->regexHostPort . '(\\/' . $this->regexHttpPath . '(\\?' . $this->regexHttpSearch . ')?)?(#' . $this->regexHttpFragment . ')?';

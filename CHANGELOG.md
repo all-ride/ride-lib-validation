@@ -1,3 +1,7 @@
+## [1.3.0] - 2019-04-16
+### Added
+- added escape filter
+
 ## [1.2.1] - 2018-12-07
 ### Updated
 - allow tilde (~) in HTTP URL path

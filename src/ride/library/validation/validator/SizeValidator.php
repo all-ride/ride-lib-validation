@@ -173,9 +173,11 @@ class SizeValidator extends NumericValidator {
         if (is_array($value)) {
             $size = count($value);
             $valueIsArray = true;
-        } else {
+        } elseif ($value) {
             $size = mb_strlen($value);
             $valueIsArray = false;
+        } else {
+            $size = null;
         }
 
         if ($this->minimum != null && $this->maximum != null) {

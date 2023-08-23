@@ -236,6 +236,11 @@ class UrlValidator extends RegexValidator {
      */
     protected $regexUrl;
 
+    protected $regexUnicode;
+    protected $regexAlphaUnicode;
+    protected $regexAlphaDigitUnicode;
+    protected $regexHttpFragment;
+
     /**
      * Constructs a new URL validator instance
      * @param array $options Options for this validator

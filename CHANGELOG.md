@@ -1,5 +1,8 @@
+## [1.5.0] - 2023-08-23
+### Updated
+- Creation of dynamic properties is deprecated
 ## [1.4.0] - 2023-08-18
-### UPdated
+### Updated
 - mb_strlen cannot be null
 ## [1.3.0] - 2019-04-16
 ### Added

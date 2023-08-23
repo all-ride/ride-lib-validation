@@ -1,3 +1,6 @@
+## [1.4.0] - 2023-08-18
+### UPdated
+- mb_strlen cannot be null
 ## [1.3.0] - 2019-04-16
 ### Added
 - added escape filter

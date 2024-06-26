@@ -11,6 +11,7 @@ use \InvalidArgumentException;
  * ValidationException containing the ValidationErrors
  */
 class ValidationException extends Exception {
+    public $memberships;
 
     /**
      * Array with the errors per field

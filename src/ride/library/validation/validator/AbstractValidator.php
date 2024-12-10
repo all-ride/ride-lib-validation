@@ -65,7 +65,7 @@ abstract class AbstractValidator implements Validator {
      * Adds an error to this validator
      * @param string $code Code or translation key for the error
      * @param string $message Message of the error
-     * @param string $parameters Parameters for variables in the message
+     * @param array $parameters Parameters for variables in the message
      * @return null
      */
     protected function addValidationError($code, $message, $parameters) {

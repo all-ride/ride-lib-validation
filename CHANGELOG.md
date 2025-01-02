@@ -1,3 +1,6 @@
+## [1.6.2] - 2025-01-02
+### Updated
+- Removed public property 
 ## [1.6.1] - 2024-12-11
 ### Updated
 - Updated AbstractValidator 
